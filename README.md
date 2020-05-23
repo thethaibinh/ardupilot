@@ -29,4 +29,4 @@ Ardupilot does support X-Plane simulations if it has a stable frame rate, data r
   It's a inverted V-tail configuration and is the same UAV class with my model. Therefore, it's compatible with the control model.
   You might need to fine tune several PID parameters to make it flight.
     
-  ![quadplane](https://github.com/thethaibinh/Inverted-V-tail-Xplane-Simulation/blob/master/Screenshot%20(87).png?raw=true)
+  ![quadplane](https://github.com/thethaibinh/ardupilot/blob/Quadplane-Xplane/2020-04-23%204.07.16%20AM.png?raw=true)
