@@ -166,6 +166,12 @@ class VehicleInfo(object):
                 "waf_target": "bin/arduplane",
                 "default_params_filename": "default_params/quadplane.parm",
             },
+            # Binh edit
+            "xplane": {
+                "waf_target": "bin/arduplane",
+                "default_params_filename": "default_params/quadplane.parm",
+            },            
+            # Binh end
             "firefly": {
                 "waf_target": "bin/arduplane",
                 "default_params_filename": "default_params/firefly.parm",

@@ -1111,7 +1111,7 @@ const AP_Param::GroupInfo ParametersG2::var_info[] = {
     AP_SUBGROUPINFO(ice_control, "ICE_", 2, ParametersG2, AP_ICEngine),
 
     // 3 was used by prototype for servo_channels
-    
+
     // @Param: SYSID_ENFORCE
     // @DisplayName: GCS sysid enforcement
     // @Description: This controls whether packets from other than the expected GCS system ID will be accepted
@@ -1137,7 +1137,7 @@ const AP_Param::GroupInfo ParametersG2::var_info[] = {
     // @Path: ../libraries/AP_Soaring/AP_Soaring.cpp
     AP_SUBGROUPINFO(soaring_controller, "SOAR_", 8, ParametersG2, SoaringController),
 #endif
-  
+
     // @Param: RUDD_DT_GAIN
     // @DisplayName: rudder differential thrust gain
     // @Description: gain control from rudder to differential thrust
@@ -1153,7 +1153,7 @@ const AP_Param::GroupInfo ParametersG2::var_info[] = {
     // @Bitmask: 0:Chan1,1:Chan2,2:Chan3,3:Chan4,4:Chan5,5:Chan6,6:Chan7,7:Chan8,8:Chan9,9:Chan10,10:Chan11,11:Chan12,12:Chan13,13:Chan14,14:Chan15,15:Chan16
     // @User: Advanced
     AP_GROUPINFO("MANUAL_RCMASK", 10, ParametersG2, manual_rc_mask, 0),
-    
+
     // @Param: HOME_RESET_ALT
     // @DisplayName: Home reset altitude threshold
     // @Description: When the aircraft is within this altitude of the home waypoint, while disarmed it will automatically update the home position. Set to 0 to continously reset it.
@@ -1239,8 +1239,18 @@ const AP_Param::GroupInfo ParametersG2::var_info[] = {
     // @User: Advanced
     AP_GROUPINFO("DSPOILER_AILMTCH", 21, ParametersG2, crow_flap_aileron_matching, 100),
 
-    AP_GROUPEND
-};
+    // Binh edit
+    // @Param: ALT_HOLD_HOME
+    // @DisplayName: Hold altitude at home
+    // @Description:
+    // @Range: 100 1000
+    // @Units: %
+    // @Increment: 1
+    // @User: Advanced
+    AP_GROUPINFO("ALT_HOLD_HOME", 24, ParametersG2, alt_hold_home, 15000.0f),
+    // Binh end
+
+    AP_GROUPEND};
 
 ParametersG2::ParametersG2(void) :
     ice_control(plane.rpm_sensor)

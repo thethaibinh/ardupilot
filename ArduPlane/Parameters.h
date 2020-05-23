@@ -564,6 +564,10 @@ public:
     AP_Int8 crow_flap_weight_inner;
     AP_Int8 crow_flap_options;
     AP_Int8 crow_flap_aileron_matching;
+
+    // Binh edit
+    AP_Float alt_hold_home;
+    // Binh end 
 };
 
 extern const AP_Param::Info var_info[];

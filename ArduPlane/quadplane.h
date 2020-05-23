@@ -291,6 +291,14 @@ private:
     
     // alt to switch to QLAND_FINAL
     AP_Float land_final_alt;
+
+    // Binh edit
+    // the vertical speed threshold for detecting ground contact
+    AP_Float gnd_vert_cms;
+    // the horizontal speed threshold for detecting ground contact
+    AP_Float gnd_hor_cms;
+    // Binh end
+
     AP_Float vel_forward_alt_cutoff;
     
     AP_Int8 enable;

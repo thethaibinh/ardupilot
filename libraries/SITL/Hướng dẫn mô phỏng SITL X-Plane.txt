@@ -1,0 +1,15 @@
+Hướng dẫn mô phỏng SITL X-Plane
+1. Chạy X-Plane với mô hình Shikra của Veronte
+2. Tìm đến phần Settings --> tab Data Output --> NETWORK CONFIGURATION,
+    đánh dấu tích vào ô Send network data output. Đặt IP address: 127.0.0.1
+    Port 49005
+3. Checkout branch "can_mess" trong repository module/mavlink từ 
+    remote http://192.168.202.191/ap_software/mavlink 
+    Chạy mô phỏng SITL với dòng lệnh
+    sim_vehicle.py -v ArduPlane -f xplane 
+    tùy chọn tham số  chạy: --console --map
+4. Tùy chọn: vận hành bay bằng cmd mavproxy hoặc GCS Mission Planner
+Kết nối Mission Planner qua UDP: Baudrate 115200
+5. Tham số cài đặt cho AP mô phỏng: xplane_sil_6H.param trong cùng thư mục này.
+Nhiệm vụ bay: 916_15012020.waypoints
+Tham số bay thực tế dùng để so sánh và mô phỏng: 916_15012020.param

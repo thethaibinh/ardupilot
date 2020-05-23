@@ -1,127 +1,32 @@
-# ArduPilot Project
+## Ardupilot SITL simulation for a quadplane
+A SITL simulation with Ardupilot controller, Mission Planner GCS, and a quadplane model from X-Plane.
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/ArduPilot/ardupilot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[Project website](http://thaibinhnguyen.xyz/project-view/ardupilot-sitl-simulation-for-a-quadplane/)
 
-[![Build Travis](https://travis-ci.org/ArduPilot/ardupilot.svg?branch=master)](https://travis-ci.org/ArduPilot/ardupilot) [![Build SemaphoreCI](https://semaphoreci.com/api/v1/ardupilot/ardupilot/branches/master/badge.svg)](https://semaphoreci.com/ardupilot/ardupilot) [![Build Status](https://dev.azure.com/ardupilot-org/ardupilot/_apis/build/status/ArduPilot.ardupilot?branchName=master)](https://dev.azure.com/ardupilot-org/ardupilot/_build/latest?definitionId=1&branchName=master)
+# 1. Overview
+This project provides a configuration to run a light and precise SITL simulation for a Quadplane using the Ardupilot controller with an aircraft model in X-Plane.
+Many individual developers do not have a PC that strong enough to run a full-featured flight simulation with a high frame rate, especially when it comes to a professional platform such as X-Plane. However, if we only want a flight to evaluate algorithms at navigational levels, we can still manipulate tools and configurations to archive that. 
+Ardupilot does support X-Plane simulations if it has a stable frame rate, data rate, and not too much drop-out. Error from frame rate missing would integrate into a failure. I modified the way it calculates aircraft position so that it rejects combined error.
 
-[![Coverity Scan Build Status](https://scan.coverity.com/projects/5331/badge.svg)](https://scan.coverity.com/projects/ardupilot-ardupilot)
-
-[![Autotest Status](http://autotest.ardupilot.org/autotest-badge.svg)](http://autotest.ardupilot.org/)
-
-## The ArduPilot project is made up of: ##
-
-- ArduCopter (or APM:Copter) : [code](https://github.com/ArduPilot/ardupilot/tree/master/ArduCopter), [wiki](http://ardupilot.org/copter/index.html)
-
-- ArduPlane (or APM:Plane) : [code](https://github.com/ArduPilot/ardupilot/tree/master/ArduPlane), [wiki](http://ardupilot.org/plane/index.html)
-
-- ArduRover (or APMrover2) : [code](https://github.com/ArduPilot/ardupilot/tree/master/APMrover2), [wiki](http://ardupilot.org/rover/index.html)
-
-- ArduSub (or APM:Sub) : [code](https://github.com/ArduPilot/ardupilot/tree/master/ArduSub), [wiki](http://ardusub.com/)
-
-- Antenna Tracker : [code](https://github.com/ArduPilot/ardupilot/tree/master/AntennaTracker), [wiki](http://ardupilot.org/antennatracker/index.html)
-
-## User Support & Discussion Forums ##
-
-- Support Forum: <http://discuss.ardupilot.org/>
-
-- Community Site: <http://ardupilot.org>
-
-## Developer Information ##
-
-- Github repository: <https://github.com/ArduPilot/ardupilot>
-
-- Main developer wiki: <http://dev.ardupilot.org>
-
-- Developer discussion: <http://discuss.ardupilot.org>
-
-- Developer chat: <https://gitter.im/ArduPilot/ardupilot>
-
-## Top Contributors ##
-
-- [Flight code contributors](https://github.com/ArduPilot/ardupilot/graphs/contributors)
-- [Wiki contributors](https://github.com/ArduPilot/ardupilot_wiki/graphs/contributors)
-- [Most active support forum users](https://discuss.ardupilot.org/u?order=post_count&period=quarterly)
-- [Partners who contribute financially](http://ardupilot.org/about/Partners)
-
-## How To Get Involved ##
-
-- The ArduPilot project is open source and we encourage participation and code contributions: [guidelines for contributors to the ardupilot codebase](http://ardupilot.org/dev/docs/contributing.html)
-
-- We have an active group of Beta Testers especially for ArduCopter to help us find bugs: [release procedures](http://dev.ardupilot.org/wiki/release-procedures)
-
-- Desired Enhancements and Bugs can be posted to the [issues list](https://github.com/ArduPilot/ardupilot/issues).
-
-- Help other users with log analysis in the [support forums](http://discuss.ardupilot.org/)
-
-- Improve the wiki and chat with other [wiki editors on Gitter](https://gitter.im/ArduPilot/ardupilot_wiki)
-
-- Contact the developers on one of the [communication channels](http://ardupilot.org/copter/docs/common-contact-us.html)
-
-## License ##
-
-The ArduPilot project is licensed under the GNU General Public
-License, version 3.
-
-- [Overview of license](http://dev.ardupilot.com/wiki/license-gplv3)
-
-- [Full Text](https://github.com/ArduPilot/ardupilot/blob/master/COPYING.txt)
-
-## Maintainers ##
-
-Ardupilot is comprised of several parts, vehicles and boards. The list below
-contains the people that regularly contribute to the project and are responsible
-for reviewing patches on their specific area.  See also the list of developers with [merge rights](https://github.com/orgs/ArduPilot/teams/ardupilot-maintainers/members).
-
-- [Andrew Tridgell](https://github.com/tridge):
-  - ***Vehicle***: Plane, AntennaTracker
-  - ***Board***: APM1, APM2, Pixhawk, Pixhawk2, PixRacer
-- [Francisco Ferreira](https://github.com/oxinarf):
-  - ***Bug Master***
-- [Grant Morphett](https://github.com/gmorph):
-  - ***Vehicle***: Rover
-- [Jacob Walser](https://github.com/jaxxzer):
-  - ***Vehicle***: Sub
-- [Lucas De Marchi](https://github.com/lucasdemarchi):
-  - ***Subsystem***: Linux
-- [Michael du Breuil](https://github.com/WickedShell):
-  - ***Subsystem***: Batteries
-  - ***Subsystem***: GPS
-  - ***Subsystem***: Scripting
-- [Peter Barker](https://github.com/peterbarker):
-  - ***Subsystem***: DataFlash, Tools
-- [Randy Mackay](https://github.com/rmackay9):
-  - ***Vehicle***: Copter, Rover, AntennaTracker
-- [Tom Pittenger](https://github.com/magicrub):
-  - ***Vehicle***: Plane
-- [Bill Geyer](https://github.com/bnsgeyer):
-  - ***Vehicle***: TradHeli
-- [Chris Olson](https://github.com/ChristopherOlson):
-  - ***Vehicle***: TradHeli
-- [Emile Castelnuovo](https://github.com/emilecastelnuovo):
-  - ***Board***: VRBrain
-- [Eugene Shamaev](https://github.com/EShamaev):
-  - ***Subsystem***: CAN bus
-  - ***Subsystem***: UAVCAN
-- [Georgii Staroselskii](https://github.com/staroselskii):
-  - ***Board***: NavIO
-- [Gustavo José de Sousa](https://github.com/guludo):
-  - ***Subsystem***: Build system
-- [Julien Beraud](https://github.com/jberaud):
-  - ***Board***: Bebop & Bebop 2
-- [Leonard Hall](https://github.com/lthall):
-  - ***Subsystem***: Copter attitude control and navigation
-- [Matt Lawrence](https://github.com/Pedals2Paddles):
-  - ***Vehicle***: 3DR Solo & Solo based vehicles
-- [Matthias Badaire](https://github.com/badzz):
-  - ***Subsystem***: FRSky
-- [Mirko Denecke](https://github.com/mirkix):
-  - ***Board***: BBBmini, BeagleBone Blue, PocketPilot
-- [Paul Riseborough](https://github.com/priseborough):
-  - ***Subsystem***: AP_NavEKF2
-  - ***Subsystem***: AP_NavEKF3
-- [Pierre Kancir](https://github.com/khancyr):
-  - ***Subsystem***: Copter SITL, Rover SITL
-- [Víctor Mayoral Vilches](https://github.com/vmayoral):
-  - ***Board***: PXF, Erle-Brain 2, PXFmini
-- [Amilcar Lucas](https://github.com/amilcarlucas):
-  - ***Subsystem***: Marvelmind
+# 2. Getting started
+  * Run X-Plane with your quadplane model. You have to manual adjust 
+  * In X-Plane, go to Settings --> tab Data Output --> NETWORK CONFIGURATION,
+      Choose "Send network data output". Set IP address: 127.0.0.1
+      Port 49005
+  * Run Ardupilot SITL by the command
+      sim_vehicle.py -v ArduPlane -f xplane 
+      option parameters: --console --map    
+      > /ardupilot$ sim_vehicle.py -v ArduPlane -f xplane --console --map
+  * Flight operation by mavproxy cmd or GCS Mission Planner or QgroundControl      
+  * Parameters file for autopilot:
+      Simulation: xplane_sil_6H.param
+      Sample flight mission 915 Hoa Lac: 916_15012020.waypoint 
+      in libraries/SITL/params Xplane của project. 
+# 3. Flight your own models and learn.
+  * Refer [modelling instruction](https://developer.x-plane.com/manuals/planemaker/#The_Plane_Maker_Interface) from Laminar Research
+  to build your own aircraft models. 
+  * Try the [Penguin drone](https://forums.x-plane.org/index.php?/files/file/33625-tactical-drone-penguin-like/) if you like. 
+  It's a inverted V-tail configuration and is the same UAV class with my model. Therefore, it's compatible with the control model.
+  You might need to fine tune several PID parameters to make it flight.
+    
+  ![quadplane](https://github.com/thethaibinh/Inverted-V-tail-Xplane-Simulation/blob/master/Screenshot%20(87).png?raw=true)

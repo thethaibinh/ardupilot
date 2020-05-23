@@ -120,7 +120,7 @@ const AP_Param::GroupInfo QuadPlane::var_info[] = {
     // @Range: 0.5 50
     // @Increment: 0.1
     // @User: Standard
-    AP_GROUPINFO("LAND_FINAL_ALT", 27, QuadPlane, land_final_alt, 6),
+    AP_GROUPINFO("LAND_FINAL_ALT", 27, QuadPlane, land_final_alt, 3),
 
     // 28 was used by THR_MID
 
@@ -332,7 +332,27 @@ const AP_Param::GroupInfo QuadPlane::var_info[] = {
     // @Bitmask: 0:LevelTransition,1:AllowFWTakeoff,2:AllowFWLand,3:Respect takeoff frame types,4:Use a fixed wing approach for VTOL landings,5:Use QRTL instead of QLAND for failsafe when in VTOL modes.
     AP_GROUPINFO("OPTIONS", 58, QuadPlane, options, 0),
 
-    AP_SUBGROUPEXTENSION("",59, QuadPlane, var_info2),
+    // Binh edit
+    // @Param: GND_VERT_CMS
+    // @DisplayName: 
+    // @Description: the vertical speed threshold for detecting ground contact
+    // @Units: centimeter per second
+    // @Range: 5 100
+    // @Increment: 1
+    // @User: Standard
+    AP_GROUPINFO("GND_VERT_CMS", 59, QuadPlane, gnd_vert_cms, 30),
+
+    // @Param: GND_HOR_CMS
+    // @DisplayName: 
+    // @Description: The horizontal speed threshold for detecting ground contact
+    // @Units: centimeter per second
+    // @Range: 5 200
+    // @Increment: 1
+    // @User: Standard
+    AP_GROUPINFO("GND_HOR_CMS", 60, QuadPlane, gnd_hor_cms, 70),
+    // Binh end
+
+    AP_SUBGROUPEXTENSION("",61, QuadPlane, var_info2),
 
     AP_GROUPEND
 };
@@ -2225,8 +2245,17 @@ void QuadPlane::vtol_position_controller(void)
         pos_control->update_xy_controller();
 
         // nav roll and pitch are controller by position controller
-        plane.nav_roll_cd = pos_control->get_roll();
-        plane.nav_pitch_cd = pos_control->get_pitch();
+        // until ground contact detected, nav roll and pitch are set to zero
+        if (land_detector(1000))
+        {
+            plane.nav_roll_cd = 0;
+            plane.nav_pitch_cd = 0;            
+        }
+        else
+        {        
+            plane.nav_roll_cd = pos_control->get_roll();
+            plane.nav_pitch_cd = pos_control->get_pitch();
+        }
 
         // call attitude controller
         attitude_control->input_euler_angle_roll_pitch_euler_rate_yaw(plane.nav_roll_cd,
@@ -2610,7 +2639,10 @@ bool QuadPlane::land_detector(uint32_t timeout_ms)
     // we only consider the vehicle landed when the motors have been
     // at minimum for timeout_ms+1000 and the vertical position estimate has not
     // changed by more than 20cm for timeout_ms
-    if (fabsf(height - landing_detect.vpos_start_m) > 0.2) {
+    bool no_vertical_movement = (fabsf(inertial_nav.get_velocity_z()) < gnd_vert_cms);
+    bool no_horizontal_movement = (fabsf(inertial_nav.get_speed_xy()) < gnd_hor_cms);
+    if ((fabsf(height - landing_detect.vpos_start_m) > 0.2) || !no_vertical_movement || !no_horizontal_movement) {
+    // if (fabsf(height - landing_detect.vpos_start_m) > 0.2) {
         // height has changed, call off landing detection
         landing_detect.land_start_ms = 0;
         return false;
@@ -2634,7 +2666,7 @@ void QuadPlane::check_land_complete(void)
         // only apply to final landing phase
         return;
     }
-    if (land_detector(4000)) {
+    if (land_detector(3000)) {
         plane.arming.disarm();
         poscontrol.state = QPOS_LAND_COMPLETE;
         gcs().send_text(MAV_SEVERITY_INFO,"Land complete");
@@ -2658,7 +2690,7 @@ bool QuadPlane::check_land_final(void)
       also apply landing detector, in case we have landed in descent
       phase. Use a longer threshold
      */
-    return land_detector(6000);
+    return land_detector(1000);
 }
 
 /*

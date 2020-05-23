@@ -112,7 +112,7 @@ void Plane::setup_glide_slope(void)
  */
 int32_t Plane::get_RTL_altitude()
 {
-    if (g.RTL_altitude_cm < 0) {
+    if ((g.RTL_altitude_cm < 0) | (current_loc.alt > (g.RTL_altitude_cm + home.alt))){
         return current_loc.alt;
     }
     return g.RTL_altitude_cm + home.alt;

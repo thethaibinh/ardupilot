@@ -236,6 +236,10 @@ void Plane::update_loiter(uint16_t radius)
         */
         nav_controller->update_waypoint(prev_WP_loc, next_WP_loc);
     } else {
+        if ((current_loc.get_distance(next_WP_loc) < radius * 3) && (control_mode == &mode_rtl))
+        {
+            next_WP_loc.alt = g2.alt_hold_home + home.alt;
+        }
         nav_controller->update_loiter(next_WP_loc, radius, loiter.direction);
     }
 
